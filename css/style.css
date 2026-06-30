@@ -48,6 +48,7 @@
 html,
 body {
   height: 100%;
+  overflow: hidden; /* 모바일에서 카드 바깥(배경)까지 같이 스크롤되며 화면이 흔들리는 것을 방지 */
   background: #111;
   font-family: var(--font-body);
   color: var(--color-ink);
@@ -75,8 +76,9 @@ button {
   width: 100%;
   max-width: var(--page-max-width);
   height: 100vh;
+  height: 100dvh; /* 모바일 브라우저 주소창이 나타나거나 사라져도 카드 높이가 흔들리지 않도록 동적 뷰포트 단위 사용 */
   margin: 0 auto;
-  overflow: hidden; /* 표지/메인 페이지는 스크롤 없이 화면 한 장으로 고정 */
+  overflow: hidden; /* 표지/메인 페이지는 스크롤 없이 화면 한 장으로 고정, details 안쪽 스크롤만 따로 허용 */
   background: var(--color-cream);
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.35);
 }
@@ -266,12 +268,11 @@ button {
   margin-bottom: 1.2rem;
 }
 
-/* .main__bow : 하단 장식 리본. currentColor를 써서 color 속성으로 색을 지정 */
+/* .main__bow : 하단 장식 로고 이미지. images/logo.png 파일을 교체하면 바로 반영됩니다. */
 .main__bow {
   width: 64px;
   height: auto;
-  color: var(--color-gold);
-  fill: currentColor;
+  object-fit: contain;
 }
 
 /* =============================================================================

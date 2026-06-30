@@ -86,14 +86,9 @@
           Click for the details
         </button>
 
-        <!-- main__bow : 장식용 리본 아이콘 (간단한 도형 SVG, fill="currentColor"로 CSS에서 색 지정) -->
-        <svg class="main__bow" viewBox="0 0 120 70" aria-hidden="true">
-          <path d="M58,33 C30,8 5,14 8,28 C10,40 35,38 58,33 Z" />
-          <path d="M62,33 C90,8 115,14 112,28 C110,40 85,38 62,33 Z" />
-          <path d="M56,36 L38,66 L50,55 Z" />
-          <path d="M64,36 L82,66 L70,55 Z" />
-          <circle cx="60" cy="33" r="6" />
-        </svg>
+        <!-- main__bow : 장식용 로고 이미지. images/logo.png 파일을 본인 로고/이미지로
+             교체하면 바로 반영됩니다. -->
+        <img class="main__bow" src="images/logo.png" alt="" aria-hidden="true" />
       </div>
     </section>
 
@@ -179,9 +174,8 @@
           ============================================================
           여기부터는 나중에 필요할 때 쓸 수 있는 "빈 템플릿" 섹션들입니다.
           필요한 부분만 주석을 해제하고 내용을 채워 넣으세요.
-          (주석 해제 방법: 앞의 <!--  와 뒤의  --> 를 지우면 됩니다)
           ============================================================
-
+      -->
           <div class="details__section">
             <h2 class="details__heading">마음 전하실 곳</h2>
             <p class="details__venue-desc">신랑측 계좌번호: 은행명 000-0000-0000 (예금주)</p>
@@ -190,10 +184,10 @@
 
           <div class="details__section">
             <h2 class="details__heading">오시는 길</h2>
-            <p class="details__venue-desc">주소: 부산 해운대구 ...</p>
+            <p class="details__venue-desc">주소: 부산 해운대구 어쩌구 저쩌구</p>
             <p class="details__venue-desc">지하철/버스/주차 안내 등을 적어주세요.</p>
           </div>
-        -->
+        
 
         <!-- details__back : 누르면 PAGE 2(메인 청첩장)로 되돌아감 -->
         <button class="details__back" type="button" data-action="go-main">← 처음으로</button>

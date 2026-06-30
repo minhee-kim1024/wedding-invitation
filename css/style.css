@@ -1,0 +1,453 @@
+/* =============================================================================
+   Minjeong & Taeyoon 모바일 청첩장 — style.css
+   클래스마다 어떤 역할을 하는지 바로 위에 한글로 설명을 적어두었습니다.
+   색상/폰트/간격 같은 공통 값은 맨 위 :root 변수에서 한 번에 관리합니다.
+============================================================================= */
+
+/* ---- 1. 폰트 불러오기 ------------------------------------------------------
+   Dream Avenue는 영문 캘리그라피 폰트라 한글 글자는 표시할 수 없습니다.
+   라이선스(제작자 Muntab_Art)상 "개인적·비상업적 용도 무료"라서, 저작권 문제로
+   폰트 파일을 코드에 미리 넣어드리지 못합니다. 아래 사이트 중 한 곳에서 직접
+   받아 fonts 폴더에 넣어주세요. (자세한 방법은 README.md 참고)
+     - https://fontsfree.net/dream-avenue-font-download.html
+     - https://fonnts.com/dream-avenue/
+   파일을 아직 넣지 않아도 한글 폰트(Nanum Myeongjo, 구글 폰트)로 자동 대체되어
+   화면이 깨지지 않습니다. */
+@font-face {
+  font-family: "Dream Avenue";
+  src:
+    url("../fonts/DreamAvenue.woff2") format("woff2"),
+    url("../fonts/DreamAvenue.otf") format("opentype"),
+    url("../fonts/DreamAvenue.ttf") format("truetype"),
+    /* fontsfree.net에서 받으면 파일명이 아래처럼 길게 나옵니다.
+       이름을 안 바꾸고 그대로 쓸 수 있도록 경로를 추가해 두었습니다. */
+    url("../fonts/FontsFree-Net-Dream-Avenue.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---- 2. 공통 변수 ---------------------------------------------------------- */
+:root {
+  --color-cream: #f7f1e6;       /* 청첩장 본문/상세정보 배경색 (크림색) */
+  --color-ink: #2c2a25;         /* 기본 글자색 (진한 먹색) */
+  --color-muted: #6b6a64;       /* 보조 설명 글자색 (회색) */
+  --color-gold: #9c8a55;        /* 포인트 색 (제목, 테두리, 구분선, 타임라인) */
+  --font-script: "Dream Avenue", "Nanum Myeongjo", serif;   /* 영문 캘리그라피 제목용 */
+  --font-body: "Nanum Myeongjo", serif;                      /* 한글 본문/설명용 */
+  --page-max-width: 480px;      /* 모바일 카드 최대 너비 (PC에서 봐도 휴대폰처럼 보이게) */
+}
+
+/* ---- 3. 기본 리셋 ----------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  background: #111;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* =============================================================================
+   4. 전체 레이아웃
+============================================================================= */
+
+/* .invitation : 청첩장 전체를 감싸는 바깥 틀.
+   휴대폰 화면처럼 보이도록 최대 너비를 제한하고, 화면 높이만큼 채웁니다.
+   안쪽의 PAGE 세 개는 이 안에서 절대 위치로 겹쳐 쌓이고, JS가 보이는 페이지만
+   바꿔줍니다(.is-active 클래스로 제어). */
+.invitation {
+  position: relative;
+  width: 100%;
+  max-width: var(--page-max-width);
+  height: 100vh;
+  margin: 0 auto;
+  overflow: hidden; /* 표지/메인 페이지는 스크롤 없이 화면 한 장으로 고정 */
+  background: var(--color-cream);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.35);
+}
+
+/* .page : 세 페이지(표지/메인/상세) 공통 스타일.
+   기본적으로 화면에서 숨겨져 있다가(.is-active가 없으면 투명+클릭 불가),
+   .is-active가 붙은 페이지만 보이고 클릭도 가능해집니다. */
+.page {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.7s ease;
+}
+
+.page.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* =============================================================================
+   5. PAGE 1 — 표지(커버)
+============================================================================= */
+
+.page--cover {
+  display: block;
+}
+
+/* .cover__bg : 배경 사진 레이어. 본인 사진으로 바꾸려면
+   images/cover-bg.jpg 파일만 같은 이름으로 교체하면 됩니다.
+   (다른 파일명을 쓰고 싶다면 아래 url() 경로만 바꿔주세요) */
+.cover__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("../images/cover-bg.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* .cover__overlay : 사진 위에 살짝 어두운 그라데이션을 깔아 글씨가 잘 보이게 함 */
+.cover__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.15) 55%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+/* .cover__content : "Save the date" 문구들을 화면 하단 중앙에 배치 */
+.cover__content {
+  position: absolute;
+  left: 50%;
+  bottom: 13%;
+  width: 100%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fbf8f1;
+}
+
+.cover__label {
+  font-family: var(--font-script);
+  font-size: 2.1rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.cover__date {
+  font-size: 1rem;
+  letter-spacing: 4px;
+  font-weight: 300;
+  margin-bottom: 2.6rem;
+}
+
+/* .cover__cta : "Click to open" 버튼. 위아래로 살짝 움직이는 애니메이션으로
+   클릭(터치) 가능한 요소임을 알려줍니다. */
+.cover__cta {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: cover-bounce 2.4s ease-in-out infinite;
+}
+
+.cover__cta-arrow {
+  font-size: 1rem;
+}
+
+@keyframes cover-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.85; }
+  50% { transform: translateY(7px); opacity: 1; }
+}
+
+/* =============================================================================
+   6. PAGE 2 — 메인 청첩장
+============================================================================= */
+
+.page--main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9% 10%;
+}
+
+/* .main__frame : 장식용 물결(스캘럽) 테두리. images/frame-border.svg를 그대로
+   페이지 전체에 깔아주는 역할만 하므로 보통 수정할 필요는 없습니다. */
+.main__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* .main__content : 이름/날짜/장소/인사말 등 실제 글자 내용을 담는 영역.
+   z-index:1로 위에 올려서 .main__frame(테두리)보다 앞에 보이게 함 */
+.main__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main__names {
+  font-family: var(--font-script);
+  font-size: 1.9rem;
+  color: var(--color-ink);
+}
+
+.main__tagline {
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-top: 0.4rem;
+}
+
+.main__divider {
+  color: var(--color-gold);
+  font-size: 0.9rem;
+  margin: 1.1rem 0;
+}
+
+.main__datetime {
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  margin-bottom: 0.35rem;
+}
+
+.main__venue {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  margin-bottom: 1.5rem;
+}
+
+/* .main__poem-box : 인사말 문구를 감싸는 점선 테두리 박스 */
+.main__poem-box {
+  border: 1px dashed var(--color-gold);
+  border-radius: 4px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.6rem;
+}
+
+.main__poem {
+  font-size: 0.82rem;
+  line-height: 1.95;
+  color: #3c3a34;
+}
+
+.main__cta {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  margin-bottom: 1.2rem;
+}
+
+/* .main__bow : 하단 장식 리본. currentColor를 써서 color 속성으로 색을 지정 */
+.main__bow {
+  width: 64px;
+  height: auto;
+  color: var(--color-gold);
+  fill: currentColor;
+}
+
+/* =============================================================================
+   7. PAGE 3 — 상세 정보 (스크롤 가능)
+============================================================================= */
+
+/* .page--details : 다른 두 페이지와 달리 내용이 길어질 수 있으므로
+   세로 스크롤을 허용합니다 (overflow-y: auto). */
+.page--details {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.details__scroll {
+  padding: 14% 10% 18%;
+}
+
+.details__section {
+  text-align: center;
+  margin-bottom: 3.2rem;
+}
+
+.details__heading {
+  font-family: var(--font-script);
+  font-size: 1.7rem;
+  margin-bottom: 1.1rem;
+}
+
+.details__venue-name {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.details__venue-desc {
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: var(--color-muted);
+}
+
+/* .details__timeline : Program 일정을 보여주는 세로 타임라인 목록 */
+.details__timeline {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+  list-style: none;
+  padding-left: 1.4rem;
+}
+
+/* 타임라인 가운데 세로선 */
+.details__timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: var(--color-gold);
+}
+
+.details__timeline-item {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.details__dot {
+  position: absolute;
+  left: -1.4rem;
+  top: 0.3rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-gold);
+}
+
+.details__time {
+  width: 46px;
+  font-size: 0.78rem;
+  color: var(--color-gold);
+}
+
+.details__label {
+  font-size: 0.88rem;
+}
+
+/* .details__gallery : (현재 HTML에서는 주석 처리된) 갤러리 템플릿용 그리드.
+   주석을 해제해서 쓸 경우를 대비해 미리 준비해 둔 스타일입니다. */
+.details__gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.details__gallery img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 2px;
+  cursor: pointer; /* 클릭(확대)할 수 있는 요소임을 알려주는 손가락 커서 */
+  transition: transform 0.2s ease;
+}
+
+.details__gallery img:hover {
+  transform: scale(1.03); /* PC에서 마우스를 올렸을 때 살짝 커지는 효과 */
+}
+
+/* .details__back : 맨 아래 "← 처음으로" 버튼, 메인 청첩장(PAGE 2)으로 복귀 */
+.details__back {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  text-decoration: underline;
+}
+
+/* =============================================================================
+   8. 라이트박스 (Gallery 사진 확대 보기)
+============================================================================= */
+
+/* .lightbox : 화면 전체를 덮는 어두운 오버레이.
+   기본 상태에서는 opacity:0 + visibility:hidden으로 완전히 숨겨두고,
+   js/main.js가 .is-open 클래스를 붙이면 화면에 나타납니다. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 8, 0.92);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* .lightbox__img : 확대된 사진. 화면을 벗어나지 않도록 최대 크기만 제한하고
+   원본 비율은 유지합니다(object-fit: contain). */
+.lightbox__img {
+  max-width: 86%;
+  max-height: 78%;
+  object-fit: contain;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 1.4rem;
+  color: #f7f1e6;
+  line-height: 1;
+}
+
+/* .lightbox__nav : 이전/다음 사진으로 넘기는 좌우 화살표 버튼 */
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.2rem;
+  color: #f7f1e6;
+  padding: 0.3rem 0.6rem;
+  line-height: 1;
+}
+
+.lightbox__nav--prev {
+  left: 4px;
+}
+
+.lightbox__nav--next {
+  right: 4px;
+}

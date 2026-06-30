@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Minjeong &amp; Taeyoon 모바일 청첩장</title>
+
+  <!--
+    카카오톡/문자로 링크를 공유했을 때 미리보기(썸네일)가 보이도록 하는
+    Open Graph 태그입니다. GitHub Pages로 배포한 뒤, 아래 주석을 해제하고
+    실제 배포 주소로 og:image를 채우면 미리보기에 사진이 표시됩니다.
+
+    <meta property="og:title" content="Minjeong & Taeyoon 결혼합니다" />
+    <meta property="og:description" content="2026.10.09 12:00 | 해운대 파라다이스 호텔 본관 2F 그랜드볼룸" />
+    <meta property="og:image" content="https://내계정.github.io/저장소이름/images/cover-bg.jpg" />
+  -->
+
+  <!-- Dream Avenue는 영문 전용 캘리그라피 폰트라 한글은 표시하지 못합니다.
+       그래서 한글 본문에는 구글 폰트인 'Nanum Myeongjo'를 함께 불러옵니다. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- .invitation : 휴대폰 화면 비율(최대 480px)로 모든 페이지를 감싸는 바깥 틀 -->
+  <div class="invitation" id="invitation">
+
+    <!-- ======================================================================
+         PAGE 1 — 표지(커버) 페이지
+         실제 사진(images/cover-bg.jpg)을 배경으로 쓰고, 그 위에 "Save the date"
+         문구를 올립니다. "Click to open" 버튼을 누르면 PAGE 2로 전환됩니다.
+    ======================================================================= -->
+    <section class="page page--cover is-active" id="page-cover" data-page="cover">
+      <!-- cover__bg : 배경 사진. 본인 사진으로 바꾸려면 images/cover-bg.jpg 파일을 교체하세요 -->
+      <div class="cover__bg" aria-hidden="true"></div>
+      <!-- cover__overlay : 글씨가 잘 보이도록 사진 위에 까는 어두운 그라데이션 -->
+      <div class="cover__overlay" aria-hidden="true"></div>
+
+      <div class="cover__content">
+        <p class="cover__label">Save the date</p>
+        <p class="cover__date">2026.10.09</p>
+        <!-- data-action="go-main" : js/main.js가 이 속성을 보고 PAGE 2로 전환시킴 -->
+        <button class="cover__cta" type="button" data-action="go-main">
+          <span class="cover__cta-text">Click to open</span>
+          <span class="cover__cta-arrow" aria-hidden="true">⌄</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PAGE 2 — 메인 청첩장 페이지
+         크림색 배경 + 물결(스캘럽) 테두리 디자인. 신랑신부 이름·일시·장소·인사말을
+         담습니다. "Click for the details" 클릭 시 PAGE 3로 전환됩니다.
+    ======================================================================= -->
+    <section class="page page--main" id="page-main" data-page="main">
+      <!-- main__frame : 장식용 물결 테두리 (images/frame-border.svg, 수정 불필요) -->
+      <img class="main__frame" src="images/frame-border.svg" alt="" aria-hidden="true" />
+
+      <div class="main__content">
+        <p class="main__names">Minjeong &amp; Taeyoon</p>
+        <p class="main__tagline">are getting married</p>
+
+        <div class="main__divider" aria-hidden="true">❉</div>
+
+        <p class="main__datetime">2026.10.09&nbsp;&nbsp;12:00</p>
+        <p class="main__venue">해운대 파라다이스 호텔 본관 2F, 그랜드 볼룸</p>
+
+        <div class="main__poem-box">
+          <p class="main__poem">
+            시월,<br />
+            함께 걷는 것만으로도 소풍이 되는 사람과<br />
+            평생을 같은 길로 나아가려 합니다.
+            <br /><br />
+            소중한 걸음 하시어<br />
+            저희의 시작을 함께해 주시면<br />
+            감사하겠습니다.
+          </p>
+        </div>
+
+        <button class="main__cta" type="button" data-action="go-details">
+          Click for the details
+        </button>
+
+        <!-- main__bow : 장식용 리본 아이콘 (간단한 도형 SVG, fill="currentColor"로 CSS에서 색 지정) -->
+        <svg class="main__bow" viewBox="0 0 120 70" aria-hidden="true">
+          <path d="M58,33 C30,8 5,14 8,28 C10,40 35,38 58,33 Z" />
+          <path d="M62,33 C90,8 115,14 112,28 C110,40 85,38 62,33 Z" />
+          <path d="M56,36 L38,66 L50,55 Z" />
+          <path d="M64,36 L82,66 L70,55 Z" />
+          <circle cx="60" cy="33" r="6" />
+        </svg>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PAGE 3 — 상세 정보 페이지 (세로 스크롤 가능)
+         Location / Program 섹션은 예시 내용입니다. 자유롭게 바꿔도 되고,
+         아래쪽에 갤러리·계좌번호·오시는 길 등을 위한 빈 템플릿(주석 처리)을
+         미리 준비해 두었으니 필요할 때 주석을 해제하고 채우세요.
+    ======================================================================= -->
+    <section class="page page--details" id="page-details" data-page="details">
+      <div class="details__scroll">
+
+        <!-- ---- Location (예시 내용 - 자유롭게 수정하세요) ---- -->
+        <div class="details__section">
+          <h2 class="details__heading">Location</h2>
+          <p class="details__venue-name">해운대 파라다이스 호텔</p>
+          <p class="details__venue-desc">
+            본관 2층 그랜드볼룸에서 진행됩니다.<br />
+            ※ 이 설명 문구는 예시이니 원하는 내용으로 바꿔주세요.
+          </p>
+          <!-- 지도를 넣고 싶다면 카카오맵/네이버맵 embed iframe이나 지도 이미지를
+               이 위치에 추가하면 됩니다. -->
+        </div>
+
+        <!-- ---- Program (예시 - 시간/순서는 자유롭게 수정하세요) ---- -->
+        <div class="details__section">
+          <h2 class="details__heading">Program</h2>
+          <ul class="details__timeline">
+            <li class="details__timeline-item">
+              <span class="details__dot" aria-hidden="true"></span>
+              <span class="details__time">12:00</span>
+              <span class="details__label">하객 입장</span>
+            </li>
+            <li class="details__timeline-item">
+              <span class="details__dot" aria-hidden="true"></span>
+              <span class="details__time">12:30</span>
+              <span class="details__label">예식</span>
+            </li>
+            <li class="details__timeline-item">
+              <span class="details__dot" aria-hidden="true"></span>
+              <span class="details__time">13:00</span>
+              <span class="details__label">피로연</span>
+            </li>
+            <li class="details__timeline-item">
+              <span class="details__dot" aria-hidden="true"></span>
+              <span class="details__time">15:00</span>
+              <span class="details__label">행사 종료</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- ---- Gallery (사진 20장 - 클릭하면 라이트박스로 크게 보입니다) ----
+             사진을 추가/삭제하려면 <img> 줄을 복사하거나 지우면 됩니다.
+             data-action="lightbox-open" 은 js/main.js가 "이 이미지를 클릭하면
+             확대해서 보여줘"라고 인식하는 표시이니 지우지 마세요. -->
+        <div class="details__section">
+          <h2 class="details__heading">Gallery</h2>
+          <div class="details__gallery">
+            <img src="images/gallery-1.jpg" alt="갤러리 사진 1" data-action="lightbox-open" />
+            <img src="images/gallery-2.jpg" alt="갤러리 사진 2" data-action="lightbox-open" />
+            <img src="images/gallery-3.jpg" alt="갤러리 사진 3" data-action="lightbox-open" />
+            <img src="images/gallery-4.jpg" alt="갤러리 사진 4" data-action="lightbox-open" />
+            <img src="images/gallery-5.jpg" alt="갤러리 사진 5" data-action="lightbox-open" />
+            <img src="images/gallery-6.jpg" alt="갤러리 사진 6" data-action="lightbox-open" />
+            <img src="images/gallery-7.jpg" alt="갤러리 사진 7" data-action="lightbox-open" />
+            <img src="images/gallery-8.jpg" alt="갤러리 사진 8" data-action="lightbox-open" />
+            <img src="images/gallery-9.jpg" alt="갤러리 사진 9" data-action="lightbox-open" />
+            <img src="images/gallery-10.jpg" alt="갤러리 사진 10" data-action="lightbox-open" />
+            <img src="images/gallery-11.jpg" alt="갤러리 사진 11" data-action="lightbox-open" />
+            <img src="images/gallery-12.jpg" alt="갤러리 사진 12" data-action="lightbox-open" />
+            <img src="images/gallery-13.jpg" alt="갤러리 사진 13" data-action="lightbox-open" />
+            <img src="images/gallery-14.jpg" alt="갤러리 사진 14" data-action="lightbox-open" />
+            <img src="images/gallery-15.jpg" alt="갤러리 사진 15" data-action="lightbox-open" />
+            <img src="images/gallery-16.jpg" alt="갤러리 사진 16" data-action="lightbox-open" />
+            <img src="images/gallery-17.jpg" alt="갤러리 사진 17" data-action="lightbox-open" />
+            <img src="images/gallery-18.jpg" alt="갤러리 사진 18" data-action="lightbox-open" />
+            <img src="images/gallery-19.jpg" alt="갤러리 사진 19" data-action="lightbox-open" />
+            <img src="images/gallery-20.jpg" alt="갤러리 사진 20" data-action="lightbox-open" />
+          </div>
+        </div>
+
+        <!--
+          ============================================================
+          여기부터는 나중에 필요할 때 쓸 수 있는 "빈 템플릿" 섹션들입니다.
+          필요한 부분만 주석을 해제하고 내용을 채워 넣으세요.
+          (주석 해제 방법: 앞의 <!--  와 뒤의  --> 를 지우면 됩니다)
+          ============================================================
+
+          <div class="details__section">
+            <h2 class="details__heading">마음 전하실 곳</h2>
+            <p class="details__venue-desc">신랑측 계좌번호: 은행명 000-0000-0000 (예금주)</p>
+            <p class="details__venue-desc">신부측 계좌번호: 은행명 000-0000-0000 (예금주)</p>
+          </div>
+
+          <div class="details__section">
+            <h2 class="details__heading">오시는 길</h2>
+            <p class="details__venue-desc">주소: 부산 해운대구 ...</p>
+            <p class="details__venue-desc">지하철/버스/주차 안내 등을 적어주세요.</p>
+          </div>
+        -->
+
+        <!-- details__back : 누르면 PAGE 2(메인 청첩장)로 되돌아감 -->
+        <button class="details__back" type="button" data-action="go-main">← 처음으로</button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ======================================================================
+       라이트박스 — Gallery 사진을 클릭하면 여기에 크게 띄워서 보여줍니다.
+       평소에는 숨겨져 있고(.lightbox에 is-open 클래스가 없으면 안 보임),
+       js/main.js가 열고/닫고/이전·다음 사진으로 넘기는 것을 담당합니다.
+  ======================================================================= -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" type="button" data-action="lightbox-close" aria-label="닫기">✕</button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" data-action="lightbox-prev" aria-label="이전 사진">‹</button>
+    <img class="lightbox__img" id="lightbox-img" src="" alt="" />
+    <button class="lightbox__nav lightbox__nav--next" type="button" data-action="lightbox-next" aria-label="다음 사진">›</button>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
